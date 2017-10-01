@@ -19,7 +19,7 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! ingo#collections#unique#AddNew( list, expr )
+function! UniqueAddNew( list, expr )
 "******************************************************************************
 "* PURPOSE:
 "   Append a:expr to a:list when it's not already contained.
@@ -33,9 +33,9 @@ function! ingo#collections#unique#AddNew( list, expr )
 "* RETURN VALUES:
 "   a:list
 "******************************************************************************
-    return ingo#collections#unique#InsertNew(a:list, a:expr, len(a:list))
+    return UniqueInsertNew(a:list, a:expr, len(a:list))
 endfunction
-function! ingo#collections#unique#InsertNew( list, expr, ... )
+function! UniqueInsertNew( list, expr, ... )
 "******************************************************************************
 "* PURPOSE:
 "   Insert a:expr at the start of a:list when it's not already contained.
@@ -89,7 +89,7 @@ function! s:RetrieveSpellErrors( firstLine, lastLine )
 	    let l:entry = l:spellErrorInfo[l:spellBadWord]
 	    let l:entry.count += 1
 	    if len(l:entry.context) < g:SpellCheck_ErrorContextNum
-		call ingo#collections#unique#AddNew(l:entry.context, s:GetErrorContext(l:lnum, l:col))
+		call UniqueAddNew(l:entry.context, s:GetErrorContext(l:lnum, l:col))
 	    endif
 	else
 	    let l:spellErrorInfo[l:spellBadWord] = {
