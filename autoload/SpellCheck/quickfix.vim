@@ -19,6 +19,45 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+function! ingo#collections#unique#AddNew( list, expr )
+"******************************************************************************
+"* PURPOSE:
+"   Append a:expr to a:list when it's not already contained.
+"* ASSUMPTIONS / PRECONDITIONS:
+"   None.
+"* EFFECTS / POSTCONDITIONS:
+"   None.
+"* INPUTS:
+"   a:list  List to be modified.
+"   a:expr  Item to be added.
+"* RETURN VALUES:
+"   a:list
+"******************************************************************************
+    return ingo#collections#unique#InsertNew(a:list, a:expr, len(a:list))
+endfunction
+function! ingo#collections#unique#InsertNew( list, expr, ... )
+"******************************************************************************
+"* PURPOSE:
+"   Insert a:expr at the start of a:list when it's not already contained.
+"   If a:idx is specified insert a:expr before the item with index a:idx.
+"* ASSUMPTIONS / PRECONDITIONS:
+"   None.
+"* EFFECTS / POSTCONDITIONS:
+"   None.
+"* INPUTS:
+"   a:list  List to be modified.
+"   a:expr  Item to be added.
+"   a:idx   Optional index before which a:expr is inserted.
+"* RETURN VALUES:
+"   a:list
+"******************************************************************************
+    if index(a:list, a:expr) == -1
+	return call('insert', [a:list, a:expr] + a:000)
+    else
+	return a:list
+    endif
+endfunction
+
 function! s:GotoNextLine( lastLine )
     if line('.') < a:lastLine
 	call cursor(line('.') + 1, 1)
